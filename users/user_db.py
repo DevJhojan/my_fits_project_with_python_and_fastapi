@@ -36,9 +36,8 @@ async def user_found(id: str):
 #querry
 #retorna el usuario buscado
 @user_db.get("/userquery/")
-async def userquerry(id: int):
-  pass
-  #return search_user_by_email(id)
+async def userquerry(id: str):
+  return search_user("_id", ObjectId(id))
 
 # Busca los usuarios por el id
 def search_user_by_email(email:str):

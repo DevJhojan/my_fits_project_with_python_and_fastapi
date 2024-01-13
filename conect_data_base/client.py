@@ -1,5 +1,8 @@
 from pymongo import MongoClient
 
+db_clien: MongoClient
 
-db_clien: MongoClient =  MongoClient('mongodb://localhost:27017/')
-
+try:
+  db_clien =  MongoClient('mongodb://localhost:27017/')
+except:
+  pass

@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from enum import Enum
 from pydantic import BaseModel
 from products import products
-from users import user
+from users import user, user_db
 from auth import auth2, authJWT
 
 # Modelo no funcional
@@ -25,6 +25,9 @@ my_steeps.include_router(auth2.login_auth)
 
 # Entruta hasta el login de jwt
 my_steeps.include_router(authJWT.login_auth_jwt)
+
+# enruta al api que esta conectada a la base de datos
+my_steeps.include_router(user_db.user_db)
 
 # all names of files, aways is at English 
 # Llamado de archivos staticos 

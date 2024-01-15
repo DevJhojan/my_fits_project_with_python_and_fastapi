@@ -61,16 +61,14 @@ def search_user(field:str, key):
 """
 @user_db.post("/add/")
 async def user_post(user: User):
-  if type(search_user("email", user.email))==User:
+  try:
+    user_dict = dict(user)
+    del user_dict["id"]
+    id = db_clien.local.users.insert_one(user_dict).inserted_id
+    new_user=user_schema(db_clien.local.users.find_one({"_id": id}))
+    return User(**new_user)
+  except:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="The user with this email alredy exist")
-  
-  user_dict = dict(user)
-  del user_dict["id"]
-  id = db_clien.local.users.insert_one(user_dict).inserted_id
-  new_user=user_schema(db_clien.local.users.find_one({"_id": id}))
-  return User(**new_user)
-   
-   
 
 # este actualiza el usuario
 @user_db.put("/update/")
